@@ -1,0 +1,50 @@
+[
+("""It's a visually stunning movie, finding moments both macro and micro to highlight the beautiful imagination that "Star Wars" can evoke.""", {
+'words': ['It', "'s", 'a', 'visually', 'stunning', 'movie', ',', 'finding', 'moments', 'both', 'macro', 'and', 'micro', 'to', 'highlight', 'the', 'beautiful', 'imagination', 'that', '"', 'Star', 'Wars', '"', 'can', 'evoke', '.'],
+'entities': [(25, 30, 'PRODUCT'), (114, 123, 'WORK_OF_ART')],
+'heads': [1, 1, 5, 4, 5, 1, 1, 1, 7, 10, 8, 10, 10, 14, 7, 17, 17, 14, 24, 24, 21, 24, 23, 24, 17, 1],
+'deps': ['nsubj', 'ROOT', 'det', 'advmod', 'amod', 'attr', 'punct', 'advcl', 'dobj', 'preconj', 'amod', 'cc', 'conj', 'aux', 'advcl', 'det', 'amod', 'dobj', 'mark', 'punct', 'compound', 'nsubj', 'punct', 'aux', 'relcl', 'punct'],
+'tags': ['PRP', 'VBZ', 'DT', 'RB', 'JJ', 'NN', ',', 'VBG', 'NNS', 'CC', 'JJ', 'CC', 'JJ', 'TO', 'VB', 'DT', 'JJ', 'NN', 'IN', '``', 'NNP', 'NNS', "''", 'MD', 'VB', '.'],
+'cats': {'POSITIVE': True, 'NEGATIVE': False}
+}),
+("Vivid colors, remarkable production design, a deft malleability of scale that allowed for moments where the small became large and vice versa; the aesthetic at work here is truly a rich one.", {
+'words': ['Vivid', 'colors', ',', 'remarkable', 'production', 'design', ',', 'a', 'deft', 'malleability', 'of', 'scale', 'that', 'allowed', 'for', 'moments', 'where', 'the', 'small', 'became', 'large', 'and', 'vice', 'versa', ';', 'the', 'aesthetic', 'at', 'work', 'here', 'is', 'truly', 'a', 'rich', 'one', '.'],
+'entities': [],
+'heads': [1, 30, 1, 5, 5, 1, 5, 9, 9, 5, 9, 10, 13, 9, 13, 14, 19, 18, 19, 15, 23, 20, 20, 19, 5, 26, 5, 26, 27, 26, 30, 30, 34, 34, 30, 30],
+'deps': ['amod', 'nsubj', 'punct', 'amod', 'compound', 'appos', 'punct', 'det', 'amod', 'conj', 'prep', 'pobj', 'nsubj', 'relcl', 'prep', 'pobj', 'advmod', 'det', 'nsubj', 'relcl', 'amod', 'cc', 'conj', 'attr', 'punct', 'det', 'conj', 'prep', 'pobj', 'advmod', 'ROOT', 'advmod', 'det', 'amod', 'attr', 'punct'],
+'tags': ['JJ', 'NNS', ',', 'JJ', 'NN', 'NN', ',', 'DT', 'NN', 'NN', 'IN', 'NN', 'WDT', 'VBD', 'IN', 'NNS', 'WRB', 'DT', 'JJ', 'VBD', 'JJ', 'CC', 'NN', 'NN', ':', 'DT', 'JJ', 'IN', 'NN', 'RB', 'VBZ', 'RB', 'DT', 'JJ', 'NN', '.'],
+'cats': {'POSITIVE': True, 'NEGATIVE': False}
+}),
+("Space battles, hand-to-hand fights, quiet conversations... it all looks remarkable.", {
+'words': ['Space', 'battles', ',', 'hand', '-', 'to', '-', 'hand', 'fights', ',', 'quiet', 'conversations', '...', 'it', 'all', 'looks', 'remarkable', '.'],
+'entities': [],
+'heads': [1, 1, 1, 8, 3, 3, 5, 5, 1, 8, 11, 8, 15, 15, 13, 1, 15, 15],
+'deps': ['compound', 'ROOT', 'punct', 'nmod', 'punct', 'prep', 'punct', 'pobj', 'conj', 'punct', 'amod', 'conj', 'punct', 'nsubj', 'appos', 'parataxis', 'acomp', 'punct'],
+'tags': ['NN', 'NNS', ',', 'NN', 'HYPH', 'IN', 'HYPH', 'NN', 'NNS', ',', 'JJ', 'NNS', ':', 'PRP', 'DT', 'VBZ', 'JJ', '.'],
+'cats': {'POSITIVE': True, 'NEGATIVE': False}
+}),
+("The sense of humor was a big shift in tone, one that I greatly enjoyed (though others may disagree).", {
+'words': ['The', 'sense', 'of', 'humor', 'was', 'a', 'big', 'shift', 'in', 'tone', ',', 'one', 'that', 'I', 'greatly', 'enjoyed', '(', 'though', 'others', 'may', 'disagree', ')', '.'],
+'entities': [],
+'heads': [1, 4, 1, 2, 4, 7, 7, 4, 7, 8, 7, 7, 15, 15, 15, 11, 4, 20, 20, 20, 4, 4, 4],
+'deps': ['det', 'nsubj', 'prep', 'pobj', 'ROOT', 'det', 'amod', 'attr', 'prep', 'pobj', 'punct', 'appos', 'dobj', 'nsubj', 'advmod', 'relcl', 'punct', 'mark', 'nsubj', 'aux', 'advcl', 'punct', 'punct'],
+'tags': ['DT', 'NN', 'IN', 'NN', 'VBD', 'DT', 'JJ', 'NN', 'IN', 'NN', ',', 'CD', 'WDT', 'PRP', 'RB', 'VBD', '-LRB-', 'IN', 'NNS', 'MD', 'VB', '-RRB-', '.'],
+'cats': {'POSITIVE': True, 'NEGATIVE': False}
+}),
+("At first I worried that a sense of glibness would undercut the weightier aspects, but the occasional laughter proved a welcome presence – a light to balance the dark, if you will.", {
+'words': ['At', 'first', 'I', 'worried', 'that', 'a', 'sense', 'of', 'glibness', 'would', 'undercut', 'the', 'weightier', 'aspects', ',', 'but', 'the', 'occasional', 'laughter', 'proved', 'a', 'welcome', 'presence', '–', 'a', 'light', 'to', 'balance', 'the', 'dark', ',', 'if', 'you', 'will', '.'],
+'entities': [(3, 8, 'ORDINAL')],
+'heads': [3, 0, 3, 3, 10, 6, 10, 6, 7, 10, 3, 13, 13, 10, 3, 3, 18, 18, 19, 3, 22, 22, 19, 19, 25, 19, 27, 25, 29, 27, 19, 33, 33, 19, 19],
+'deps': ['prep', 'pcomp', 'nsubj', 'ROOT', 'mark', 'det', 'nsubj', 'prep', 'pobj', 'aux', 'ccomp', 'det', 'amod', 'dobj', 'punct', 'cc', 'det', 'amod', 'nsubj', 'conj', 'det', 'amod', 'dobj', 'npadvmod', 'det', 'oprd', 'aux', 'relcl', 'det', 'dobj', 'punct', 'mark', 'nsubj', 'advcl', 'punct'],
+'tags': ['IN', 'RB', 'PRP', 'VBD', 'IN', 'DT', 'NN', 'IN', 'NN', 'MD', 'VB', 'DT', 'JJR', 'NNS', ',', 'CC', 'DT', 'JJ', 'NN', 'VBD', 'DT', 'JJ', 'NN', ':', 'DT', 'NN', 'TO', 'VB', 'DT', 'NN', ',', 'IN', 'PRP', 'MD', '.'],
+'cats': {'POSITIVE': True, 'NEGATIVE': False}
+}),
+('It felt indicative of the joy that, at heart, is what many of us are seeking from "Star Wars."', {
+'words': ['It', 'felt', 'indicative', 'of', 'the', 'joy', 'that', ',', 'at', 'heart', ',', 'is', 'what', 'many', 'of', 'us', 'are', 'seeking', 'from', '"', 'Star', 'Wars', '.', '"'],
+'entities': [(83, 92, 'WORK_OF_ART')],
+'heads': [1, 1, 1, 2, 5, 3, 11, 11, 11, 8, 11, 1, 17, 17, 13, 14, 17, 11, 17, 21, 21, 18, 1, 23],
+'deps': ['nsubj', 'ROOT', 'acomp', 'prep', 'det', 'pobj', 'nsubj', 'punct', 'prep', 'pobj', 'punct', 'ccomp', 'dobj', 'nsubj', 'prep', 'pobj', 'aux', 'ccomp', 'prep', 'punct', 'compound', 'pobj', 'punct', 'ROOT'],
+'tags': ['PRP', 'VBD', 'JJ', 'IN', 'DT', 'NN', 'IN', ',', 'IN', 'NN', ',', 'VBZ', 'WP', 'JJ', 'IN', 'PRP', 'VBP', 'VBG', 'IN', '``', 'NNP', 'NNS', '.', "''"],
+'cats': {'POSITIVE': True, 'NEGATIVE': False}
+})
+]
