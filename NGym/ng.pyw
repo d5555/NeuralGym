@@ -18,6 +18,7 @@ from pathlib import Path
 from spacy.util import minibatch, compounding
 from spacy.gold import GoldParse
 from spacy.scorer import Scorer
+import codecs
 
 spacy.prefer_gpu()
 
@@ -249,7 +250,7 @@ class MyForm(QDialog):
         datapath = Path(datapath)
         if not datapath.is_file(): self.log(f'incorrect data file path: {datapath}',self.red); return
         try:
-            with open(datapath, 'r') as f:
+            with codecs.open(datapath, 'r', encoding='utf-8', errors='ignore') as f:
                 fileContents = f.read()
                 TRAIN_DATA=literal_eval( fileContents)
             print(f'TRAIN_DATA loaded from path: \"{datapath}\"')
