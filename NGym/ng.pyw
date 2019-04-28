@@ -72,10 +72,10 @@ if config_path.is_file():
     config.read(config_path)
 else:
     config['DEFAULT'] = {'New model name': 'NewModel',
-                        'outputpath': os.getenv("SystemDrive")+'/',
+                        'Output folder': os.getenv("SystemDrive")+'/',
                         'traindatapath': 'Data File path...',
                         'eval_ind': 0.2,
-                        'existmodelpath': 'Model path...',
+                        'Model path folder': 'Model path...',
                         'n_iter': 100,
                         'learn_rate': 0.001,
                         'drop_ind': 0.2,
@@ -122,17 +122,17 @@ class MyForm(QDialog):
 
         self.ui.modname.setText(self.train_config.get('New model name', 'NewModel'))
         self.set_lineedit_validator(self.ui.modname, "[a-zA-Z-0-9_]+")
-        start_output_path=self.train_config.get('outputpath', os.getenv("SystemDrive")+'/')
+        start_output_path=self.train_config.get('Output folder', os.getenv("SystemDrive")+'/')
         self.ui.outputpath.setText(start_output_path)
-        self.ui.open_output.clicked.connect(lambda:self.browsefunc(self.ui.outputpath, 'outputpath'))
+        self.ui.open_output.clicked.connect(lambda:self.browsefunc(self.ui.outputpath, 'Output folder'))
         #---------Training DATA
         self.ui.traindatapath.setText(self.train_config.get('traindatapath', 'data file path...'))
         self.ui.but_traindatapath.clicked.connect(lambda:self.browsefilefunc(self.ui.traindatapath, 'traindatapath'))
 
 
         #---------Select Model to train
-        self.ui.existmodelpath.setText(self.train_config.get('existmodelpath', 'en'))
-        self.ui.but_existmodelpath.clicked.connect(lambda:self.browsefunc(self.ui.existmodelpath,  'existmodelpath'))
+        self.ui.existmodelpath.setText(self.train_config.get('Model path folder', 'Model path...'))
+        self.ui.but_existmodelpath.clicked.connect(lambda:self.browsefunc(self.ui.existmodelpath,  'Model path folder'))
         
         #-------------------Training options
         self.n_iter=     self.train_config.get('n_iter', 100)
@@ -169,7 +169,7 @@ class MyForm(QDialog):
         self.progressChanged.connect(self.ui.progressBar.setValue)
         self.log_.connect(self.log)
 
-        self.output_dir=self.train_config['outputpath']
+        self.output_dir=self.train_config['Output folder']
         self.thread_flag=0
         self.save_model_flag=0
 
@@ -220,10 +220,10 @@ class MyForm(QDialog):
         self.log(f'spaCy{spacy.__version__}', col=QColor(0, 255, 0))
 
         print('Variables initialization...')
-        self.output_dir=self.train_config['outputpath']; print( f'Output_dir:\"{self.output_dir}\"')#+self.train_config['new model name']
+        self.output_dir=self.train_config['Output folder']; print( f'Output_dir:\"{self.output_dir}\"')#+self.train_config['new model name']
         
         if self.ui.model_rb1.isChecked()==True: 
-            model=self.train_config['existmodelpath']#self.existmodelpath['text']
+            model=self.train_config['Model path folder']#self.existmodelpath['text']
             try:
                 set_data_path(model)
                 print('Loading model...')
@@ -333,9 +333,9 @@ class MyForm(QDialog):
 
     def reinit_entries(self):
         self.train_config['New model name']=self.ui.modname.text()
-        self.train_config['outputpath']=self.ui.outputpath.text()
+        self.train_config['Output folder']=self.ui.outputpath.text()
         self.train_config['traindatapath']=self.ui.traindatapath.text()
-        self.train_config['existmodelpath']=self.ui.existmodelpath.text()
+        self.train_config['Model path folder']=self.ui.existmodelpath.text()
     def closeEvent(self, event):    
         self.disrupt_thread()
         self.reinit_entries()
@@ -344,13 +344,13 @@ class MyForm(QDialog):
 
     def browsefunc(self, variab, conf_var):
         #dirname = askdirectory()#(parent=root, initialdir='/home/', title='dirtext') 
-        dirname =QFileDialog.getExistingDirectory(self, 'Select a folder:', f'{variab.text()}', QFileDialog.ShowDirsOnly)
+        dirname =QFileDialog.getExistingDirectory(self, conf_var, f'{variab.text()}', QFileDialog.ShowDirsOnly)
         if dirname:
             variab.setText(dirname+'/')
             self.train_config[conf_var]=dirname+'/'
     def browsefilefunc(self, variab, conf_var):
         #data_filename = askopenfilename(filetypes=(('Text files', '*.txt'), ('All files', '*.*')), defaultextension='.txt')
-        data_filename =QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*)")#"All Files (*);;Text Files (*.txt)"
+        data_filename =QFileDialog.getOpenFileName(self,"Select training data file:", "","All Files (*)")#"All Files (*);;Text Files (*.txt)"
         #print(data_filename)
         if data_filename:
             variab.setText(data_filename[0])
