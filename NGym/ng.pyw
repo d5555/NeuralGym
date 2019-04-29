@@ -210,7 +210,7 @@ class MyForm(QDialog):
     def initiate_data(self):
         try: self.initiate_()
         except Exception as e: 
-                print(f'Initializing variables error:', e)
+                self.log_.emit(f'Initializing variables error:\n{e}', self.red)
     def initiate_(self):
 
         self.reinit_entries()
@@ -273,14 +273,16 @@ class MyForm(QDialog):
         check_pipe = [self.ui.Tagger.isChecked(), self.ui.Parser.isChecked(), self.ui.Ner.isChecked(), self.ui.Cat.isChecked()]
         componets = ['tagger' , 'parser' ,'ner', 'textcat']
         pipeline = {componets[i]:set()  for i in range (4) if check_pipe[i]}
+        if not pipeline: raise Exception (f"No pipeline components were selected")
 
         for _, annotations in TRAIN_DATA:
             if 'tagger' in pipeline: pipeline['tagger'] |= set(annotations.get('tags', [])); 
             if 'parser' in pipeline: pipeline['parser'] |= set(annotations.get('deps',[]))
             if 'ner'    in pipeline: pipeline['ner']    |= set( [j[2] for j in annotations.get('entities',[]) ]) 
             if 'textcat'in pipeline: pipeline['textcat']|= set( [j for j in annotations.get('cats',dict()).keys()])
-
+        
         for name in pipeline.keys():
+            #print(pipeline[name])
             if pipeline[name]: 
                 if name in nlp.pipe_names: component =  nlp.create_pipe(name)#nlp.get_pipe(name)
                 else:
@@ -288,9 +290,11 @@ class MyForm(QDialog):
                     nlp.add_pipe(component)
 
                 for lab in pipeline[name]: component.add_label(lab)
+            else:
+                self.log(f"No \'{name}\' labels found in training data", self.red) 
 
         print('pipeline = ', nlp.pipe_names)
-
+        if not nlp.pipe_names: raise Exception (f"No labels found in training data.")
         if self.ui.mbatch.isChecked(): 
             print('*Training with minibatches*')
             self.t = threading.Thread(target=self.training_with_minibatch, args=[pipeline.keys(), nlp, TRAIN_DATA] )
