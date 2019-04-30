@@ -274,6 +274,7 @@ class MyForm(QDialog):
         componets = ['tagger' , 'parser' ,'ner', 'textcat']
         pipeline = {componets[i]:set()  for i in range (4) if check_pipe[i]}
         if not pipeline: raise Exception (f"No pipeline components were selected")
+        print('Selected pipeline components:', list(pipeline) )
 
         for _, annotations in TRAIN_DATA:
             if 'tagger' in pipeline: pipeline['tagger'] |= set(annotations.get('tags', [])); 
@@ -282,19 +283,21 @@ class MyForm(QDialog):
             if 'textcat'in pipeline: pipeline['textcat']|= set( [j for j in annotations.get('cats',dict()).keys()])
         
         for name in pipeline.keys():
-            #print(pipeline[name])
-            if pipeline[name]: 
-                if name in nlp.pipe_names: component =  nlp.create_pipe(name)#nlp.get_pipe(name)
-                else:
-                    component = nlp.create_pipe(name)
-                    nlp.add_pipe(component)
-
-                for lab in pipeline[name]: component.add_label(lab)
+            if not pipeline[name]: 
+                self.log(f"No \'{name}\' labels found in training data.", self.red) 
+                if name =='textcat' and 'textcat' not in nlp.pipe_names: 
+                    self.log(f"'textcat' disabled.", self.red)
+                    continue
+            if name in nlp.pipe_names: component = nlp.get_pipe(name)#nlp.create_pipe(name)# 
             else:
-                self.log(f"No \'{name}\' labels found in training data", self.red) 
+                component = nlp.create_pipe(name)
+                nlp.add_pipe(component)
 
-        print('pipeline = ', nlp.pipe_names)
-        if not nlp.pipe_names: raise Exception (f"No labels found in training data.")
+            for lab in pipeline[name]: component.add_label(lab)
+
+        if not set(nlp.pipe_names) & set(pipeline): 
+            raise Exception (f"Empty pipeline!")
+
         if self.ui.mbatch.isChecked(): 
             print('*Training with minibatches*')
             self.t = threading.Thread(target=self.training_with_minibatch, args=[pipeline.keys(), nlp, TRAIN_DATA] )
@@ -365,12 +368,13 @@ class MyForm(QDialog):
       
         self.log_.emit("Training the model...", self.blue)
 
-        print('iter / LOSS')#, 'P', 'R', 'F'))
+        
         optimizer = nlp.begin_training(learn_rate=self.learn_rate)
         other_pipes=set(nlp.pipe_names)-set(pipeline)
 
         with nlp.disable_pipes(*other_pipes):
-            print('pipeline', nlp.pipe_names)
+            print('pipeline:', nlp.pipe_names)
+            print('iter / LOSS')#, 'P', 'R', 'F'))
             persent=100/(self.n_iter-1)
             start_time = time.time()
             for i in range(self.n_iter):
@@ -402,12 +406,13 @@ class MyForm(QDialog):
 
         self.log_.emit("Training the model...", self.blue)
         #self.prin('{:^5}\t{:^5}\t{:^5}\t{:^5}'.format('LOSS', 'P', 'R', 'F'))
-        print('Epochs / LOSS')#, 'P', 'R', 'F'))
+        
 
         optimizer = nlp.begin_training(learn_rate=self.learn_rate)
         other_pipes=set(nlp.pipe_names)-set(pipeline)
         with nlp.disable_pipes(*other_pipes):
-            print('pipeline', nlp.pipe_names)
+            print('pipeline:', nlp.pipe_names)
+            print('Epochs / LOSS')#, 'P', 'R', 'F'))
             persent=100/(self.n_iter-1)
             start_time = time.time()
             for i in range(self.n_iter):
