@@ -358,8 +358,7 @@ class MyForm(QDialog):
     def browsefilefunc(self, variab, conf_var):
         #data_filename = askopenfilename(filetypes=(('Text files', '*.txt'), ('All files', '*.*')), defaultextension='.txt')
         data_filename =QFileDialog.getOpenFileName(self,"Select training data file:", "","All Files (*)")#"All Files (*);;Text Files (*.txt)"
-        #print(data_filename)
-        if data_filename:
+        if data_filename[0]:
             variab.setText(data_filename[0])
             self.train_config[conf_var]=data_filename[0]
     #----------------------
