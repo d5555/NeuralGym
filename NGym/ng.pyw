@@ -212,7 +212,7 @@ class MyForm(QDialog):
         except Exception as e: 
                 self.log_.emit(f'Initializing variables error:\n{e}', self.red)
     def initiate_(self):
-
+        self.progressChanged.emit(0)
         self.reinit_entries()
         save_trainconfig()
         if self.thread_flag: return
