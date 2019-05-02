@@ -15,4 +15,4 @@ Launch ng.exe <br/>
 ![alt text](https://github.com/d5555/NeuralGym/blob/master/NGym.png)
 ![alt text](https://github.com/d5555/NeuralGym/blob/master/NGymChart.png)
 
-#### If you want to contribute to a project and make it better, your help is very welcome.
+#### *If you want to contribute to a project and make it better, your help is very welcome.
