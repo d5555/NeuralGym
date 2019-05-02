@@ -374,9 +374,9 @@ class MyForm(QDialog):
         with nlp.disable_pipes(*other_pipes):
             print('pipeline:', nlp.pipe_names)
             print('iter / LOSS')#, 'P', 'R', 'F'))
-            persent=100/(self.n_iter-1)
+            persent=100/self.n_iter 
             start_time = time.time()
-            for i in range(self.n_iter):
+            for i in range(1,self.n_iter+1):
 
                     random.shuffle(TRAIN_DATA)
                     losses = {}
@@ -412,9 +412,9 @@ class MyForm(QDialog):
         with nlp.disable_pipes(*other_pipes):
             print('pipeline:', nlp.pipe_names)
             print('Epochs / LOSS')#, 'P', 'R', 'F'))
-            persent=100/(self.n_iter-1)
+            persent=100/self.n_iter
             start_time = time.time()
-            for i in range(self.n_iter):
+            for i in range(1,self.n_iter+1):
                     random.shuffle(TRAIN_DATA)
                     losses = {}
                     batches = minibatch(TRAIN_DATA, size=compounding(self.batch_start, self.batch_stop, self.batch_fac))
