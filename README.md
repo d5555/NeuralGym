@@ -13,6 +13,8 @@ Launch ng.exe <br/>
 5. Press **Start**. You can disrupt training process at any time by clicking **stop** or **stop and save**. 
 
 ![alt text](https://github.com/d5555/NeuralGym/blob/master/NGym.png)
+
 ![alt text](https://github.com/d5555/NeuralGym/blob/master/NGymChart.png)
+
 
 #### *If you want to contribute to a project and make it better, your help is very welcome.
