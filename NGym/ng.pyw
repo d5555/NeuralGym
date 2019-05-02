@@ -22,6 +22,12 @@ import codecs
 
 spacy.prefer_gpu()
 
+import matplotlib
+matplotlib.use("Qt5Agg")
+
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 
 def try_except(function):
         def wrapper( self,*args, **kwargs):
@@ -47,8 +53,8 @@ class OutputWrapper(QtCore.QObject):
         self._stdout = stdout
 
     def write(self, text):
-        #self._stream.write(text)
-        self.outputWritten.emit(text)#, self._stdout)
+        #self._stream.write(text)  -  output in console window
+        self.outputWritten.emit(text) 
 
     def __getattr__(self, name):
         return getattr(self._stream, name)
@@ -66,25 +72,7 @@ def save_trainconfig():
     with open('train.ini', 'w') as configfile:
         config.write(configfile)
 
-config = configparser.ConfigParser()
-config_path = Path(os.getcwd()+"/train.ini")
-if config_path.is_file():
-    config.read(config_path)
-else:
-    config['DEFAULT'] = {'New model name': 'NewModel',
-                        'Output folder': os.getenv("SystemDrive")+'/',
-                        'traindatapath': 'Data File path...',
-                        'eval_ind': 0.2,
-                        'Model path folder': 'Model path...',
-                        'n_iter': 100,
-                        'learn_rate': 0.001,
-                        'drop_ind': 0.2,
-                        'batch_start': 4,
-                        'batch_stop': 32,
-                        'batch_factor': 1.001
-                          }
-    config['opt']={}
-    save_trainconfig()
+
 
 def evaluate(model, examples):
     scorer = Scorer()
@@ -119,6 +107,14 @@ class MyForm(QDialog):
         self._err_color = QtCore.Qt.red
         self.stdcolor=QColor('#EEEEEE')
         self.train_config=config['opt']
+        #--------------Figure---------
+        self.fig = Figure(figsize=(3, 3))
+        self.cnv = FigureCanvas(self.fig )
+        self.ui.verticalLayout_.addWidget(self.cnv)
+        self.ui.pushChart.clicked.connect(self.graph_show) 
+        self.ui.pushButton_2.clicked.connect(self.clear_output) 
+
+
 
         self.ui.modname.setText(self.train_config.get('New model name', 'NewModel'))
         self.set_lineedit_validator(self.ui.modname, "[a-zA-Z-0-9_]+")
@@ -151,8 +147,6 @@ class MyForm(QDialog):
         self.ui.comp_stop.setValidator(QIntValidator( ))
         self.ui.comp_fac.setValidator(QDoubleValidator())
 
-
-
         self.ui.iter_entry.setText(self.n_iter)
         self.ui.lr_entry.setText(self.learn_rate)
         self.ui.drop_entry.setText(self.drop_ind)
@@ -178,6 +172,26 @@ class MyForm(QDialog):
         stderr = OutputWrapper(self, False)
         stderr.outputWritten.connect(self.handleErrorOutput)
 
+        self.loss=[]
+ 
+    def graph_show(self):
+        if self.ui.pushChart.isChecked():
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_2)
+            loss=self.loss
+            ax=self.fig.add_subplot(111)
+            ax.plot([epoch.get('tagger') for epoch in loss ],  label='tagger')
+            ax.plot([epoch.get('parser') for epoch in loss ],  label='parser')
+            ax.plot([epoch.get('ner') for epoch in loss ],  label='ner')
+            ax.plot([epoch.get('textcat') for epoch in loss ],  label='textcat')
+            self.fig.legend()
+            self.cnv.draw()
+        else:
+            self.ui.stackedWidget.setCurrentWidget(self.ui.page_1)
+            self.fig.clf() 
+
+    def clear_output(self):
+        self.loss=[]
+        if self.ui.pushChart.isChecked(): self.ui.pushChart.setChecked(False); self.graph_show()
 
     def set_lineedit_validator(self, wid, val_str):
         regex=QtCore.QRegExp(val_str)
@@ -212,6 +226,10 @@ class MyForm(QDialog):
         except Exception as e: 
                 self.log_.emit(f'Initializing variables error:\n{e}', self.red)
     def initiate_(self):
+
+        self.loss=[]
+
+        if self.ui.pushChart.isChecked(): self.ui.pushChart.setChecked(False); self.graph_show()
         self.progressChanged.emit(0)
         self.reinit_entries()
         save_trainconfig()
@@ -361,7 +379,7 @@ class MyForm(QDialog):
         if data_filename[0]:
             variab.setText(data_filename[0])
             self.train_config[conf_var]=data_filename[0]
-    #----------------------
+    #----------------------training-------------
     @try_except
     def start_training(self, pipeline, nlp, TRAIN_DATA):
       
@@ -385,7 +403,7 @@ class MyForm(QDialog):
 
                     self.progressChanged.emit(i*persent)
                     print(f"{i} Epochs ---{(time.time()-start_time):.3f}seconds ---\n", losses)
-
+                    self.loss.append(losses)
                     if self.ui.eval_ck.isChecked():
                         with nlp.use_params(optimizer.averages):
                             results = evaluate(nlp, TRAIN_DATA)
@@ -399,14 +417,11 @@ class MyForm(QDialog):
         self.save_model(nlp, optimizer)        
         self.thread_flag=0
 
-
     @try_except
     def training_with_minibatch(self, pipeline, nlp, TRAIN_DATA):
 
         self.log_.emit("Training the model...", self.blue)
         #self.prin('{:^5}\t{:^5}\t{:^5}\t{:^5}'.format('LOSS', 'P', 'R', 'F'))
-        
-
         optimizer = nlp.begin_training(learn_rate=self.learn_rate)
         other_pipes=set(nlp.pipe_names)-set(pipeline)
         with nlp.disable_pipes(*other_pipes):
@@ -424,6 +439,7 @@ class MyForm(QDialog):
                         nlp.update(texts, annotations, sgd=optimizer, drop=self.drop_ind, losses=losses)
 
                     print(f"{i} Epochs ---{(time.time()-start_time):.3f}seconds ---\n", losses)#, file=buffer)
+                    self.loss.append(losses)
                     self.progressChanged.emit(i*persent)
                     if self.ui.eval_ck.isChecked():
                         with nlp.use_params(optimizer.averages):
@@ -453,7 +469,29 @@ class MyForm(QDialog):
                 warning=f'Model saved to: {self.output_dir}'
                 self.log_.emit(warning, self.green)
 
-if __name__=="__main__":    
+if __name__=="__main__":  
+
+    config = configparser.ConfigParser()
+    config_path = Path(os.getcwd()+"/train.ini")
+    if config_path.is_file():
+        config.read(config_path)
+    else:
+        config['DEFAULT'] = {'New model name': 'NewModel',
+                            'Output folder': os.getenv("SystemDrive")+'/',
+                            'traindatapath': 'Data File path...',
+                            'eval_ind': 0.2,
+                            'Model path folder': 'Model path...',
+                            'n_iter': 100,
+                            'learn_rate': 0.001,
+                            'drop_ind': 0.2,
+                            'batch_start': 4,
+                            'batch_stop': 32,
+                            'batch_factor': 1.001
+                              }
+        config['opt']={}
+        save_trainconfig()
+
+
     app = QApplication(sys.argv)
     w = MyForm()
     w.show()

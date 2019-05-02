@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'gym1.ui'
+# Form implementation generated from reading ui file 'gymstack.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(533, 546)
+        Form.resize(533, 574)
         Form.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout_5.setContentsMargins(-1, 3, -1, 5)
@@ -305,7 +305,7 @@ class Ui_Form(object):
         self.verticalLayout_5.addWidget(self.groupBox_3)
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_6.setContentsMargins(-1, 0, -1, -1)
-        self.horizontalLayout_6.setSpacing(0)
+        self.horizontalLayout_6.setSpacing(5)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.label_11 = QtWidgets.QLabel(Form)
         self.label_11.setMinimumSize(QtCore.QSize(0, 0))
@@ -314,6 +314,13 @@ class Ui_Form(object):
         self.horizontalLayout_6.addWidget(self.label_11)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_6.addItem(spacerItem4)
+        self.pushChart = QtWidgets.QPushButton(Form)
+        self.pushChart.setMaximumSize(QtCore.QSize(40, 20))
+        self.pushChart.setStyleSheet("background-color: rgb(102, 255, 94);")
+        self.pushChart.setCheckable(True)
+        self.pushChart.setFlat(False)
+        self.pushChart.setObjectName("pushChart")
+        self.horizontalLayout_6.addWidget(self.pushChart)
         self.pushButton_2 = QtWidgets.QPushButton(Form)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -327,7 +334,15 @@ class Ui_Form(object):
         self.pushButton_2.setObjectName("pushButton_2")
         self.horizontalLayout_6.addWidget(self.pushButton_2)
         self.verticalLayout_5.addLayout(self.horizontalLayout_6)
-        self.textfield = QtWidgets.QTextEdit(Form)
+        self.stackedWidget = QtWidgets.QStackedWidget(Form)
+        self.stackedWidget.setObjectName("stackedWidget")
+        self.page_1 = QtWidgets.QWidget()
+        self.page_1.setObjectName("page_1")
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.page_1)
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_6.setSpacing(0)
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
+        self.textfield = QtWidgets.QTextEdit(self.page_1)
         font = QtGui.QFont()
         font.setFamily("Courier")
         font.setPointSize(10)
@@ -335,7 +350,18 @@ class Ui_Form(object):
         self.textfield.setStyleSheet("QTextEdit {background-color: \'#222222\';\n"
 "color:\'#EEEEEE\'; selection-background-color:\"#6b6b6b\"}")
         self.textfield.setObjectName("textfield")
-        self.verticalLayout_5.addWidget(self.textfield)
+        self.verticalLayout_6.addWidget(self.textfield)
+        self.stackedWidget.addWidget(self.page_1)
+        self.page_2 = QtWidgets.QWidget()
+        self.page_2.setObjectName("page_2")
+
+        self.verticalLayout_ = QtWidgets.QVBoxLayout(self.page_2)
+        self.verticalLayout_.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_.setSpacing(0)
+        self.verticalLayout_.setObjectName("verticalLayout_")
+
+        self.stackedWidget.addWidget(self.page_2)
+        self.verticalLayout_5.addWidget(self.stackedWidget)
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setContentsMargins(-1, 3, -1, -1)
         self.horizontalLayout_8.setSpacing(5)
@@ -352,6 +378,7 @@ class Ui_Form(object):
         self.start_but = QtWidgets.QPushButton(Form)
         self.start_but.setMaximumSize(QtCore.QSize(45, 16777215))
         self.start_but.setStyleSheet("background-color: rgb(102, 255, 94);")
+        self.start_but.setFlat(False)
         self.start_but.setObjectName("start_but")
         self.horizontalLayout_8.addWidget(self.start_but)
         self.disrupt_save_but = QtWidgets.QPushButton(Form)
@@ -368,6 +395,7 @@ class Ui_Form(object):
         self.verticalLayout_5.setStretch(6, 1)
 
         self.retranslateUi(Form)
+        self.stackedWidget.setCurrentIndex(0)
         self.pushButton.clicked.connect(Form.close)
         self.eval_ck.toggled['bool'].connect(self.eval_entry.setEnabled)
         self.model_rb2.toggled['bool'].connect(self.lang_combo.setEnabled)
@@ -394,7 +422,7 @@ class Ui_Form(object):
         self.eval_entry.setToolTip(_translate("Form", "Number between 0 and 1 (Default value  = 0.2)"))
         self.eval_entry.setText(_translate("Form", "0.2"))
         self.groupBox_2.setTitle(_translate("Form", "Select model to train"))
-        self.model_rb1.setToolTip(_translate("Form", "Load model from path"))
+        self.model_rb1.setToolTip(_translate("Form", "Load a model from a shortcut link, package or data path, \"en\", \"en_core_web_sm\"... "))
         self.model_rb1.setText(_translate("Form", "Load model:"))
         self.but_existmodelpath.setText(_translate("Form", "..."))
         self.model_rb2.setToolTip(_translate("Form", "create a blank model"))
@@ -425,6 +453,7 @@ class Ui_Form(object):
         self.label_8.setText(_translate("Form", "Start"))
         self.label_10.setText(_translate("Form", "Factor"))
         self.label_11.setText(_translate("Form", "Training..."))
+        self.pushChart.setText(_translate("Form", "Chart"))
         self.pushButton_2.setToolTip(_translate("Form", "clear output window"))
         self.pushButton_2.setText(_translate("Form", "❎"))
         self.pushButton.setText(_translate("Form", "Close"))
