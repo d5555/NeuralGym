@@ -2,7 +2,7 @@
 python app for training spaCy models
 #### Installation
 **Option 1**: No installation required.
-Download and unpack(extract) [**NGymSFX.exe**](https://github.com/d5555/NeuralGym/raw/master/NGymSFX.exe)<br/>
+Download and unpack(extract) [**NGym.7z**](https://github.com/d5555/NeuralGym/raw/master/NGym.7z)<br/>
 Launch ng.exe <br/>
 **Option 2**: Download **NGym** folder with python files. Run **ng.pyw** (You will need pyqt5, spaCy and matpotlib to be installed on your PC). In this mode you can use spacy.prefer_gpu() option.<br/>
 #### How to use
