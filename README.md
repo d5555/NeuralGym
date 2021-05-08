@@ -12,6 +12,7 @@ Launch ng.exe <br/>
 3. Select a source model (it can be any spaCy model compatible with spaCy 3.0+) for training from source. You can specify either a source model name, eg en_core_web_sm or select a folder with model. If you specify the model name without full path, the model should be placed into the application's main folder (including model's dist-info folder) or add path to the Python folder where spaCy models are installed by pushing button `Add sys path`. Usually it is Python...\Lib\site-package. For example ... "C:\Python39\Lib\site-packages" '<br/>Labels in the training data should match labels in the original model otherwise start from blank model. <br/>
 4. Check on **Use averages** so the model to be saved with parameter averaging after training is done.
 5. Press **Start** to initialize training. You can disrupt training process at any time by clicking **stop**. 
+6. Button **Reset** allows to restore default settings in case of an error. Or delete 'config.cfg' in the main folder.
 
 <img src="https://github.com/d5555/NeuralGym/blob/master/NGym.png" width="550" >
 
