@@ -10,7 +10,7 @@ Launch ng.exe <br/>
 1. Create an output directory where the trained model will be saved.<br/>
 2. Select a training data file. Training data should be in spaCy data format. You can use [**TagEditor**](https://github.com/d5555/TagEditor) to create your training data. 
 3. Select a model to train (it can be any spaCy model compatible with spaCy 3.0+) or create a blank model. Labels in the training data should match labels in the original model otherwise start from blank model.<br/>
-4. Check on **Parameter averaging** so the model to be saved with parameter averaging after training is done.
+4. Check on **Use averages** so the model to be saved with parameter averaging after training is done.
 5. Press **Start**. You can disrupt training process at any time by clicking **stop**. 
 
 ![alt text](https://github.com/d5555/NeuralGym/blob/master/NGym.png)
