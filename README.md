@@ -13,7 +13,7 @@ Launch ng.exe <br/>
 4. Check on **Use averages** so the model to be saved with parameter averaging after training is done.
 5. Press **Start**. You can disrupt training process at any time by clicking **stop**. 
 
-![alt text](https://github.com/d5555/NeuralGym/blob/master/NGym.png)
+<img src="https://github.com/d5555/NeuralGym/blob/master/NGym.png" width="550" >
 
 ![alt text](https://github.com/d5555/NeuralGym/blob/master/NGymChart.png)
 
