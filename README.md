@@ -1,4 +1,4 @@
-## NeuralGym
+## NeuralGym v1.1
 python app for training spaCy models<br/>
 Check out [**TagEditor**](https://github.com/d5555/TagEditor) for creating training data
 #### Installation
