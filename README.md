@@ -8,12 +8,14 @@ Launch ng.exe <br/>
 <!---**Option 2**: Download **NGym** folder with python files. Run **ng.pyw** (You will need pyqt5, spaCy and matpotlib to be installed on your PC). In this mode you can use spacy.prefer_gpu() option.<br/>--->
 #### How to use
 1. Create an output directory where the trained model will be saved.<br/>
-2. Select a training data file. Training data should be in spaCy data format. You can use [**TagEditor**](https://github.com/d5555/TagEditor) to create your training data. 
-3. Select a model to train (it can be any spaCy model compatible with spaCy 3.0+) or create a blank model. Labels in the training data should match labels in the original model otherwise start from blank model.<br/>
-4. Check on **Parameter averaging** so the model to be saved with parameter averaging after training is done.
-5. Press **Start**. You can disrupt training process at any time by clicking **stop**. 
+2. Select `train` and `dev` data files in spaCy format. You can use [**TagEditor**](https://github.com/d5555/TagEditor) to create your training dataset. 
+3. Select a source model (it can be any spaCy model compatible with spaCy 3.0+) for training from source. You can specify either a source model name, eg en_core_web_sm or select a folder with model. If you specify the model name without full path, the model should be placed into the application's main folder (including model's dist-info folder) or add path to the Python folder where spaCy models are installed by pushing button `Add sys path`. Usually it is Python...\Lib\site-package. For example ... "C:\Python39\Lib\site-packages" <br/> To train from source check on Training options `From source` respectively. '<br/>Labels in the training data should match labels in the original model otherwise start from blank model. 
+4. Check on **Use averages** so the model to be saved with parameter averaging after training is done.
+5. Press **Start** to initialize training. You can disrupt training process at any time by clicking **stop**. 
+6. After training is completed there will be 2 folders in the output directory, **'Best model'** and **'Last model'**.
+7. Button **Reset** allows to restore default settings in case of an error. Or delete 'config.cfg' in the main folder.
 
-![alt text](https://github.com/d5555/NeuralGym/blob/master/NGym.png)
+<img src="https://github.com/d5555/NeuralGym/blob/master/NGym.png" width="550" >
 
 ![alt text](https://github.com/d5555/NeuralGym/blob/master/NGymChart.png)
 
