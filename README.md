@@ -11,7 +11,7 @@ Launch ng.exe
 git clone https://github.com/d5555/NeuralGym
 pip install neuralgym/.
 ```
-To run application: `python -m ngym` or 
+To run application open terminal (cmd) and type: `python -m ngym` or `ngym` or
 ```
 python
 import ngym
