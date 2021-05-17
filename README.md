@@ -6,7 +6,7 @@ Check out [**TagEditor**](https://github.com/d5555/TagEditor) for creating train
 Download zip archive files [**NGym.7z.001**](https://github.com/d5555/NeuralGym/raw/master/NGym.7z.001) and  [**NGym.7z.002**](https://github.com/d5555/NeuralGym/raw/master/NGym.7z.002) into the same folder, and unzip **NGym.7z.001**.<br/>
 Launch ng.exe 
 
-**Option 2**: 
+**Option 2**: from cmd
 ```
 git clone https://github.com/d5555/NeuralGym
 pip install neuralgym/.
