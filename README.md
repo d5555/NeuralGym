@@ -14,7 +14,7 @@ pip install neuralgym/.
 To run application open terminal (cmd) and type: `python -m ngym` or `ngym` or
 ```
 python
-import ngym
+>>>import ngym
 ```
 
 #### How to use
