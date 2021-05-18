@@ -2,10 +2,21 @@
 python app for training spaCy models<br/>
 Check out [**TagEditor**](https://github.com/d5555/TagEditor) for creating training data
 #### Installation
-<!---**Option 1**: No installation required.--->
+**Option 1**: No installation required.
 Download zip archive files [**NGym.7z.001**](https://github.com/d5555/NeuralGym/raw/master/NGym.7z.001) and  [**NGym.7z.002**](https://github.com/d5555/NeuralGym/raw/master/NGym.7z.002) into the same folder, and unzip **NGym.7z.001**.<br/>
-Launch ng.exe <br/>
-<!---**Option 2**: Download **NGym** folder with python files. Run **ng.pyw** (You will need pyqt5, spaCy and matpotlib to be installed on your PC). In this mode you can use spacy.prefer_gpu() option.<br/>--->
+Launch ng.exe 
+
+**Option 2**: from cmd
+```
+git clone https://github.com/d5555/NeuralGym
+pip install neuralgym/.
+```
+To run application open terminal (cmd) and type: `python -m ngym` or `ngym` or
+```
+python
+>>>import ngym
+```
+
 #### How to use
 1. Create an output directory where the trained model will be saved.<br/>
 2. Select `train` and `dev` data files in spaCy format. You can use [**TagEditor**](https://github.com/d5555/TagEditor) to create your training dataset. For demonstration purposes there are 2 dataset files, `imdb_train.spacy` (400 docs) and `imdb_dev.spacy` (100 docs) annotated with POS ,Dependencies, NER and Textcategories.
